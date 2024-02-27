@@ -6,9 +6,9 @@ namespace Play.Inventory.Service.Helpers;
 
 public static class Extensions
 {
-  public static InventoryItemDto AsDto(this InventoryItem item)
+  public static InventoryItemDto AsDto(this InventoryItem item, string name, string description)
   {
-    return new InventoryItemDto(item.CatalogItemId, item.Quantity, item.AcquiredData);
+    return new InventoryItemDto(item.CatalogItemId, item.Quantity, name, description, item.AcquiredData);
   }
 }
 

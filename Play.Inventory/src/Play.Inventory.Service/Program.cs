@@ -3,6 +3,7 @@
 
 
 using Common.Lib.MongoDB;
+using Play.Inventory.Service.Clients;
 using Play.Inventory.Service.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +12,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder
     .Services
     .AddMongo()
-    .AddMongoRepository<InventoryItem>("inventoryitems");
+    .AddMongoRepository<InventoryItem>("inventoryitems")
+    .AddHttpClient<CatalogClient>(client =>
+    {
+        client.BaseAddress = new Uri("http://localhost:5034/api");
+
+    });
     
 
 
