@@ -1,35 +1,20 @@
 
 
 using MongoDB.Driver;
+using Service.Entities;
+using Service.Helpers.Extensions;
 using Service.Repositories;
 using Service.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-ServiceSettings serviceSettings;
-
-serviceSettings = builder
-    .Configuration
-    .GetSection(nameof(ServiceSettings))
-    .Get<ServiceSettings>() ?? throw new ArgumentNullException(nameof(ServiceSettings));
-
-
 builder
     .Services
-    .AddSingleton(serviceProvider =>
-    {
-        var mongoDBSettings = builder
-            .Configuration
-            .GetSection(nameof(MongoDBSettings))
-            .Get<MongoDBSettings>() ?? throw new ArgumentNullException(nameof(MongoDBSettings));
-
-        var mongoClient = new MongoClient(mongoDBSettings.ConectionString);
-        return mongoClient.GetDatabase(serviceSettings.ServiceName);
-
-    })
-    .AddSingleton<IItemRepository, ItemRepository>();
+    .AddMongo()
+    .AddMongoRepository<Item>("items");
+    
+    
 
 
 builder.Services.AddControllers();
