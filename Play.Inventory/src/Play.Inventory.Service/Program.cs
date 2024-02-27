@@ -1,7 +1,9 @@
 
 
+
+
 using Common.Lib.MongoDB;
-using Service.Entities;
+using Play.Inventory.Service.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,8 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder
     .Services
     .AddMongo()
-    .AddMongoRepository<Item>("items");
-    
+    .AddMongoRepository<InventoryItem>("inventoryitems");
     
 
 
@@ -19,9 +20,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
 var app = builder.Build();
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

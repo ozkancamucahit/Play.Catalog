@@ -4,6 +4,10 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PackageId>Common.Lib</PackageId>
+    <Version>1.0.2</Version>
+    <Authors>Mucahit</Authors>
+    <Company>Meccu</Company>
   </PropertyGroup>
 
   <ItemGroup>

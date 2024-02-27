@@ -1,4 +1,5 @@
-﻿using Common.Lib.Repositories;
+﻿using Common.Lib.Entities;
+using Common.Lib.Repositories;
 using Common.Lib.Settings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,6 +29,17 @@ public static class Extensions
 
              });
             
+        return services;
+    }
+
+    public static IServiceCollection AddMongoRepository<T>(this IServiceCollection services, string collectionName) where T : IEntity
+    {
+        services
+            .AddSingleton<IRepository<T>>(serviceProvidewr =>
+            {
+                var dataBase = serviceProvidewr.GetService<IMongoDatabase>() ?? throw new ArgumentNullException(nameof(IMongoDatabase));
+                return new MongoRepository<T>(dataBase, collectionName);
+            });
         return services;
     }
 

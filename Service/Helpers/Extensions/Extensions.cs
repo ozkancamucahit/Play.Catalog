@@ -13,15 +13,6 @@ public static class Extensions
         return new ItemDTO(item.Id, item.Name, item.Description, item.Price, item.CreatedDate);
     }
 
-    public static IServiceCollection AddMongoRepository<T>(this IServiceCollection services, string collectionName) where T : IEntity
-    {
-        services
-            .AddSingleton<IRepository<Item>>(serviceProvidewr =>
-            {
-                var dataBase = serviceProvidewr.GetService<IMongoDatabase>() ?? throw new ArgumentNullException(nameof(IMongoDatabase));
-                return new MongoRepository<Item>(dataBase, collectionName);
-            });
-        return services;
-    }
+    
 
 }
