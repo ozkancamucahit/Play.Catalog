@@ -1,10 +1,6 @@
-
-
-using MongoDB.Driver;
+using Common.Lib.MongoDB;
 using Service.Entities;
 using Service.Helpers.Extensions;
-using Service.Repositories;
-using Service.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 

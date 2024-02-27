@@ -1,5 +1,5 @@
 ﻿
-namespace Service.Entities
+namespace Common.Lib.Entities
 {
     public interface IEntity
     {

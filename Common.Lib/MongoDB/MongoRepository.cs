@@ -1,7 +1,9 @@
-﻿using MongoDB.Driver;
-using Service.Entities;
+﻿using Common.Lib.Entities;
+using Common.Lib.Repositories;
+using MongoDB.Driver;
+using System.Linq.Expressions;
 
-namespace Service.Repositories;
+namespace Common.Lib.MongoDB;
 
 public sealed class MongoRepository<T> : IRepository<T> where T : IEntity
 {
@@ -18,11 +20,20 @@ public sealed class MongoRepository<T> : IRepository<T> where T : IEntity
     {
         return await dbcollection.Find(filterBuilder.Empty).ToListAsync();
     }
+    public async Task<IReadOnlyCollection<T>> GetAllAsync(Expression<Func<T, bool>> Filter)
+    {
+        return await dbcollection.Find(Filter).ToListAsync();
+    }
 
     public async Task<T> GetAsync(Guid id)
     {
         FilterDefinition<T> filter = filterBuilder.Eq(entity => entity.Id, id);
         return await dbcollection.Find(filter).FirstOrDefaultAsync();
+    }
+
+    public async Task<T> GetAsync(Expression<Func<T, bool>> Filter)
+    {
+        return await dbcollection.Find(Filter).FirstOrDefaultAsync();
     }
 
     public async Task CreateAsync(T entity)
@@ -51,5 +62,6 @@ public sealed class MongoRepository<T> : IRepository<T> where T : IEntity
         FilterDefinition<T> filter = filterBuilder.Eq(entity => entity.Id, id);
         await dbcollection.DeleteOneAsync(filter);
     }
+
 
 }

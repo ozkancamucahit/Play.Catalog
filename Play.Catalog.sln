@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Service\Service.csproj", "{89B44EFF-D4C3-4E2D-9489-4FD3D0E6B98D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Lib", "Common.Lib\Common.Lib.csproj", "{B56F1C11-9D23-40A5-B5BA-50A83786F9BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,8 +17,15 @@ Global
 		{89B44EFF-D4C3-4E2D-9489-4FD3D0E6B98D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89B44EFF-D4C3-4E2D-9489-4FD3D0E6B98D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89B44EFF-D4C3-4E2D-9489-4FD3D0E6B98D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B56F1C11-9D23-40A5-B5BA-50A83786F9BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B56F1C11-9D23-40A5-B5BA-50A83786F9BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B56F1C11-9D23-40A5-B5BA-50A83786F9BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B56F1C11-9D23-40A5-B5BA-50A83786F9BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6C107076-E71B-43D1-A731-91461CDB45BE}
 	EndGlobalSection
 EndGlobal

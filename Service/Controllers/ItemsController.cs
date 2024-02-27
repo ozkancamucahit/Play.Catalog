@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Common.Lib.Repositories;
+using Microsoft.AspNetCore.Mvc;
 using Service.DTOs;
 using Service.Entities;
 using Service.Helpers.Extensions;
-using Service.Repositories;
 
 namespace Service.Controllers;
 
