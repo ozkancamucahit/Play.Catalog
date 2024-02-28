@@ -1,4 +1,4 @@
-﻿namespace Service.Settings
+﻿namespace Common.Lib.Settings
 {
     public sealed class RabbitMQSettings
     {
