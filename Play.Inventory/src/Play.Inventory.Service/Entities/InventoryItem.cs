@@ -15,11 +15,9 @@ public sealed class InventoryItem : IEntity
     public Guid Id { get; set; }
 
 
-    [BsonId(IdGenerator = typeof(AscendingGuidGenerator))]
     [BsonRepresentation(BsonType.String)]
     public Guid UserId { get; set; }
 
-    [BsonId(IdGenerator = typeof(AscendingGuidGenerator))]
     [BsonRepresentation(BsonType.String)]
 
     public Guid CatalogItemId { get; set; }
