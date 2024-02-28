@@ -2,6 +2,7 @@
 
 
 
+using Common.Lib.MassTransit;
 using Common.Lib.MongoDB;
 using Play.Inventory.Service.Clients;
 using Play.Inventory.Service.Entities;
@@ -16,31 +17,13 @@ builder
     .Services
     .AddMongo()
     .AddMongoRepository<InventoryItem>("inventoryitems")
+    .AddMongoRepository<CatalogItem>("catalogitems")
+    .AddMassTransitWithRabbitMQ()
     .AddHttpClient<CatalogClient>(client =>
     {
         client.BaseAddress = new Uri("http://localhost:5034/api");
 
     })
-    .AddTransientHttpErrorPolicy(policyBuilder => 
-        policyBuilder
-        .Or<TimeoutRejectedException>()
-        .CircuitBreakerAsync(
-            3,
-            TimeSpan.FromSeconds(15),
-            onBreak: (outcome, timespan) =>
-            {
-                var serviceProvider = builder.Services.BuildServiceProvider();
-                serviceProvider.GetService<ILogger<CatalogClient>>()?
-                    .LogWarning($"Opening circuit for {timespan.TotalSeconds} seconds");
-            },
-            onReset: () =>
-            {
-                var serviceProvider = builder.Services.BuildServiceProvider();
-                serviceProvider.GetService<ILogger<CatalogClient>>()?
-                    .LogWarning($"Closing circuit");
-            }
-            
-        ))
     .AddPolicyHandler(Policy.TimeoutAsync<HttpResponseMessage>(2));
 
 
