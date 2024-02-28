@@ -1,5 +1,7 @@
 ﻿using Common.Lib.Repositories;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
+using Play.Catalog.Contracts;
 using Service.DTOs;
 using Service.Entities;
 using Service.Helpers.Extensions;
@@ -11,12 +13,15 @@ namespace Service.Controllers;
 public sealed class ItemsController : ControllerBase
 {
     private readonly IRepository<Item> itemsRepository;
+    private readonly IPublishEndpoint publishEndpoint;
+
 
     #region CTOR
-    public ItemsController(IRepository<Item> itemsRepository)
+    public ItemsController(IRepository<Item> itemsRepository, IPublishEndpoint publishEndpoint)
     {
         this.itemsRepository = itemsRepository;
-    } 
+        this.publishEndpoint = publishEndpoint;
+    }
     #endregion
 
     [HttpGet]
@@ -60,6 +65,8 @@ public sealed class ItemsController : ControllerBase
 
         await itemsRepository.CreateAsync(item);
 
+        await publishEndpoint.Publish(new CatalogItemCreated(item.Id, item.Name, item.Description));
+
         return CreatedAtAction("GetById", new { id = item.Id }, item);
     }
 
@@ -77,6 +84,9 @@ public sealed class ItemsController : ControllerBase
 
         await itemsRepository.UpdateAsync(existingItem);
 
+        await publishEndpoint.Publish(new CatalogItemUpdated(existingItem.Id, existingItem.Name, existingItem.Description));
+
+
         return NoContent();
     }
 
@@ -90,6 +100,8 @@ public sealed class ItemsController : ControllerBase
             return NotFound();
 
         await itemsRepository.RemoveAsync(id);
+        await publishEndpoint.Publish(new CatalogItemDeleted(existingItem.Id));
+
 
         return NoContent();
     }

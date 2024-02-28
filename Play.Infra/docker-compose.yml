@@ -1,7 +1,7 @@
 
 # docker run -d -p 27017:27017 --name mongo.catalog -v mongodb:/data/db mongo
 
-version: "3.8"
+version: "3.9"
 
 services:
   mongo:
@@ -12,5 +12,18 @@ services:
     volumes:
       - mongodbdata:/data/db
 
+  rabbitmq3:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    ports:
+      - "8187:5672"
+      - "8817:15672"
+    volumes:
+      - rabbitmqdataplay:/var/lib/rabbitmq
+    hostname: rabbitmq
+        
 volumes:
   mongodbdata:
+  rabbitmqdataplay:
+  
+  
