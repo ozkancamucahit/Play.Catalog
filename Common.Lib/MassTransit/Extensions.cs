@@ -1,4 +1,5 @@
 ﻿using Common.Lib.Settings;
+using GreenPipes;
 using MassTransit;
 using MassTransit.Definition;
 using Microsoft.Extensions.Configuration;
@@ -48,6 +49,11 @@ namespace Common.Lib.MassTransit
                          configurator
                              .ConfigureEndpoints(context,
                              new KebabCaseEndpointNameFormatter(serviceSettings?.ServiceName, false));
+                         configurator.UseMessageRetry(retryConfig =>
+                         {
+                             retryConfig.Interval(3, TimeSpan.FromSeconds(5));
+                         });
+
 
                      });
                  });
