@@ -9,6 +9,7 @@ using Service.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add services to the container.
 builder
     .Services
@@ -28,8 +29,17 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
+
+app.UseSwagger();
     app.UseSwaggerUI();
+
+    app.UseCors(x => x
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .AllowCredentials()
+    .WithOrigins(builder.Configuration["AllowedOrigin"])
+    .SetIsOriginAllowed(origin => true)
+    );
 }
 
 app.UseHttpsRedirection();
@@ -37,5 +47,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+
 
 app.Run();
